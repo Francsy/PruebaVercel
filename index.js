@@ -9,9 +9,9 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
-app.get('/users', async (req, res, next) => {
+app.get('/users', (req, res, next) => {
     try {
-        const result = await fs.promises.readFile('db/users.json', 'utf8');
+        const result = fs.readFileSync('./db/users.json', 'utf8');
         const dataBase = JSON.parse(result);
         res.status(200).json(dataBase)
     } catch (error) {
