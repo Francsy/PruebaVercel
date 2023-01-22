@@ -11,7 +11,7 @@ app.get('/', (req, res) => {
 
 app.get('/users', (req, res, next) => {
     try {
-        const result = fs.readFileSync('db/users.json', 'utf8');
+        const result = fs.readFile('db/users.json', 'utf8');
         const dataBase = JSON.parse(result);
         res.status(200).json(dataBase)
     } catch (error) {
