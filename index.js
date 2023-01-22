@@ -23,3 +23,5 @@ app.get('/users', (req, res, next) => {
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
+
+module.exports = app
