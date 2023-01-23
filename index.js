@@ -38,7 +38,8 @@ app.post('/users', (req, res, next) => {
           favouritesFood: req.body.favouritesFood || [],
           deleted: false
       }
-      let dataBase = getData();
+      const result = fs.readFileSync(dbPath, 'utf8');
+      const dataBase = JSON.parse(result);
       dataBase.push(newUser);
       fs.writeFile(dbPath, JSON.stringify(dataBase), (err, data) => {
           if (err) {
