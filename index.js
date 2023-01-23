@@ -2,7 +2,9 @@ const express = require('express')
 const app = express();
 const port = 3000;
 const fs = require('fs');
+const path = require('path')
 
+const dbPath = path.join(__dirname, 'db', 'users.json')
 
 
 app.get('/', (req, res) => {
@@ -11,7 +13,7 @@ app.get('/', (req, res) => {
 
 app.get('/users', (req, res, next) => {
     try {
-        const result = fs.readFileSync('db/users.json', 'utf8');
+        const result = fs.readFileSync(dbPath, 'utf8');
         const dataBase = JSON.parse(result);
         res.status(200).json(dataBase)
     } catch (error) {
