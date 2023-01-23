@@ -3,6 +3,10 @@ const app = express();
 const port = 3000;
 const fs = require('fs');
 const path = require('path')
+const { v4: uuidv4 } = require('uuid');
+app.use(express.json()) //Habilita los datos a recibir
+
+
 
 const dbPath = path.join(__dirname, 'db', 'users.json')
 
@@ -34,7 +38,7 @@ app.post('/users', (req, res, next) => {
   const { email, firstName, lastName, username } = req.body;
   if (email && firstName && lastName && username) {
       const newUser = {
-          id: 'prueba',
+          id: uuidv4(),
           email,
           firstName,
           lastName,
