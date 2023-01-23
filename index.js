@@ -6,6 +6,14 @@ const path = require('path')
 
 const dbPath = path.join(__dirname, 'db', 'users.json')
 
+const manageErrors = (err, req, res, next) => {
+  res.status(err.status || 500).json({
+      status: err.status || 500,
+      message: err.message || 'Internal Server Error',
+      error: err
+  })
+}
+
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
@@ -54,9 +62,11 @@ app.post('/users', (req, res, next) => {
   }
 })
 
+app.use(errorManager);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
+
 
 module.exports = app
