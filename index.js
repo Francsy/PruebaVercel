@@ -62,7 +62,7 @@ app.post('/users', (req, res, next) => {
   }
 })
 
-app.use(errorManager);
+app.use(manageErrors);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
