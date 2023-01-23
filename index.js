@@ -26,7 +26,7 @@ app.post('/users', (req, res, next) => {
   const { email, firstName, lastName, username } = req.body;
   if (email && firstName && lastName && username) {
       const newUser = {
-          id: uuidv4(),
+          id: 'prueba',
           email,
           firstName,
           lastName,
