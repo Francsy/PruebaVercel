@@ -25,7 +25,7 @@ app.get('/', (req, res) => {
 
 app.get('/users', (req, res, next) => {
     try {
-        const result = fs.readFileSync(dbPath, 'utf8');
+        const result = fs.readFileSync('/tmp/users.json', 'utf8');
         const dataBase = JSON.parse(result);
         res.status(200).json(dataBase)
     } catch (error) {
@@ -50,10 +50,10 @@ app.post('/users', (req, res, next) => {
           favouritesFood: req.body.favouritesFood || [],
           deleted: false
       }
-      const result = fs.readFileSync(dbPath, 'utf8');
+      const result = fs.readFileSync('/tmp/users.json', 'utf8');
       const dataBase = JSON.parse(result);
       dataBase.push(newUser);
-      fs.writeFile(dbPath, JSON.stringify(dataBase), (err, data) => {
+      fs.writeFile('/tmp/users.json', JSON.stringify(dataBase), (err, data) => {
           if (err) {
               next(err);
           } else {
