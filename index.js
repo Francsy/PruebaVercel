@@ -7,17 +7,6 @@ const { v4: uuidv4 } = require('uuid');
 app.use(express.json()) //Habilita los datos a recibir
 
 
-exports.handler = function(event, context) {
-    fs.writeFile("/tmp/users.json", "testing", function (err) {
-     if (err) {
-         context.fail("writeFile failed: " + err);
-     } else {
-         context.succeed("writeFile succeeded");
-     }
-   });
-  };
-
-
 const dbPath = path.join(__dirname, 'db', 'users.json')
 
 const manageErrors = (err, req, res, next) => {
@@ -31,6 +20,19 @@ const manageErrors = (err, req, res, next) => {
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
+})
+
+
+app.post('/create', (req, res) => {
+    const file = fs.readFileSync(dbPath, 'utf8');
+    fs.writeFile("/tmp/users.json", file, function (err) {
+        if (err) {
+            res.status(500).json({ success: false, message: err.message });
+        } else {
+            res.status(200).json({ success: true, message: "Conseguido" })
+        }
+    })
+
 })
 
 app.get('/users', (req, res, next) => {
