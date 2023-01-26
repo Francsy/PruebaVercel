@@ -7,6 +7,16 @@ const { v4: uuidv4 } = require('uuid');
 app.use(express.json()) //Habilita los datos a recibir
 
 
+exports.handler = function(event, context) {
+    fs.writeFile("/tmp/users.json", "testing", function (err) {
+     if (err) {
+         context.fail("writeFile failed: " + err);
+     } else {
+         context.succeed("writeFile succeeded");
+     }
+   });
+  };
+
 
 const dbPath = path.join(__dirname, 'db', 'users.json')
 
